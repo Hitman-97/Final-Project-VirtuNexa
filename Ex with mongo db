@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/deals', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const dealSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  location: String
+});
+
+const Deal = mongoose.model('Deal', dealSchema);
+
+app.get('/api/deals', (req, res) => {
+  const query = req.query.query;
+  Deal.find({ title: new RegExp(query, 'i') }, (err, deals) => {
+    if (err) return res.status(500).send(err);
+    res.json(deals);
+  });
+});
