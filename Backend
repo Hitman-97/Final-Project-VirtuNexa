@@ -1,0 +1,16 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/api/deals', (req, res) => {
+  const query = req.query.query;
+  const deals = [
+    { title: "50% Off at Store X", description: "50% off on all items.", location: "Local Store" },
+    { title: "Free Coffee at Cafe Y", description: "Get a free coffee with any purchase.", location: "Cafe Y" }
+  ];
+  res.json(deals);
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
